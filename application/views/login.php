@@ -1,69 +1,108 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><?php echo $nama_program; ?></title>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>asset/css/style_login.css" type="text/css" />
-    <link href="<?php echo base_url(); ?>asset/css/fonts/stylesheet.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        button {
-            margin: 0;
-            padding: 0;
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        form {
+            border: 3px solid #f1f1f1;
+            margin: auto;
+            width: 70%;
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
         }
 
         button {
-            margin: 2px;
-            position: relative;
-            padding: 4px 4px 4px 2px;
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
             cursor: pointer;
-            float: left;
-            list-style: none;
+            width: 100%;
         }
 
-        button span.ui-icon {
-            float: left;
-            margin: 0 4px;
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+
+        img.avatar {
+            width: 10%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+            .cancelbtn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div id="header">
-        <h1><?php echo $nama_program; ?></h1>
-        <h3></h3>
-    </div>
-    <?php echo form_open('login/index'); ?>
-    <fieldset>
-        <legend>Login</legend>
-        <table width="100%">
-            <tr>
-                <td>Username</td>
-                <td>:</td>
-                <td><?php echo form_input($username, set_value('username')); ?></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td>:</td>
-                <td><?php echo form_input($password); ?></td>
-            </tr>
-        </table>
-    </fieldset>
-    <fieldset class="tblFooters">
-        <div id="error">
-            <?php echo validation_errors(); ?>
-            <?php echo $this->session->flashdata('result_login'); ?>
+    <h2 style="text-align: center;">Login Form</h2>
+    <form action="http://localhost/ipinventory/index.php/login/index" method="post">
+        <div class="imgcontainer">
+            <img src="asset/img_avatar2.png" alt="Avatar" class="avatar">
         </div>
-        <?php echo form_button($submit, 'Login'); ?>
-    </fieldset>
 
-    <?php echo form_close(); ?>
+        <div class="container">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" id="username" required>
 
-    <div id="footer" align="center">
-        <p>Copyright &copy; <?php echo $instansi; ?> 2020</p>
-        <p>Halaman ini dimuat selama <strong>{elapsed_time}</strong> detik</p>
-    </div>
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
+            <button type="submit">Login</button>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+
+            <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+    </form>
+
 
 </body>
 
