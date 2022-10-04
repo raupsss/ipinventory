@@ -18,6 +18,10 @@
             <li data-options="iconCls:'icon-surat_keluar'">
                 <a href="<?php echo base_url(); ?>index.php/mahasiswa">mahasiswa</a>
             </li>
+            </li>
+            <li data-options="iconCls:'icon-surat_keluar'">
+                <a href="<?php echo base_url(); ?>index.php/siswa">siswa</a>
+            </li>
         </ul>
     </div>
 </div>

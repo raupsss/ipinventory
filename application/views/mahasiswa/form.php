@@ -7,54 +7,65 @@
                 $(this).removeClass('hilite');
             });
         });
-        $("#kode").focus();
+        $("#nim").focus();
 
-        $("#kode").keyup(function(e) {
+        $("#nim").keyup(function(e) {
             var isi = $(e.target).val();
             $(e.target).val(isi.toUpperCase());
-            CariDatamahasiswa();
+            CariDataMahasiswa();
         });
 
-        function CariDatamahasiswa() {
-            var kode = $("#kode").val()
+        function CariDataMahasiswa() {
+            var kode = $("#nim").val()
             $.ajax({
                 type: 'POST',
-                url: "<?php echo site_url(); ?>/ref_json/Infomahasiswa",
+                url: "<?php echo site_url(); ?>/ref_json/InfoMahasiswa",
                 data: "kode=" + kode,
                 cache: false,
                 dataType: "json",
                 success: function(data) {
-                    $("#nama_supp").val(data.nama_mahasiswa);
+                    $("#nama_lengkap").val(data.nama_lengkap);
+                    $("#tempat_lahir").val(data.tempat_lahir);
+                    $("#tanggal_lahir").val(data.tanggal_lahir);
+                    $("#tempat_lahir").val(data.tempat_lahir);
                     $("#alamat").val(data.alamat);
+                    $("#kode_jurusan").val(data.kode_jurusan);
+                    $("#no_hp").val(data.no_hp);
+                    $("#email").val(data.email);
+
                 }
             });
         }
 
+        $("#tanggal_lahir").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
         $("#simpan").click(function() {
-            var kode = $("#kode").val();
-            var nama_supp = $("#nama_supp").val();
-            var alamat = $("#alamat").val();
+            var nim = $("#nim").val();
+            var nama_lengkap = $("#nama_lengkap").val();
+            // var alamat = $("#alamat").val();
 
             var string = $("#form").serialize();
 
-            if (kode.length == 0) {
+            if (nim.length == 0) {
                 $.messager.show({
                     title: 'Info',
-                    msg: 'Maaf, Kode tidak boleh kosong',
+                    msg: 'Maaf, nim tidak boleh kosong',
                     timeout: 2000,
                     showType: 'show'
                 });
-                $("#kode").focus();
+                $("#nim").focus();
                 return false();
             }
-            if (nama_supp.length == 0) {
+            if (nama_lengkap.length == 0) {
                 $.messager.show({
                     title: 'Info',
                     msg: 'Maaf, Nama mahasiswa tidak boleh kosong',
                     timeout: 2000,
                     showType: 'show'
                 });
-                $("#nama_supp").focus();
+                $("#nama_lengkap").focus();
                 return false();
             }
             $.ajax({
@@ -119,7 +130,22 @@
             <tr>
                 <td>Jurusan</td>
                 <td>:</td>
-                <td><input type="text" name="jurusan" id="jurusan" size="80" maxlength="80" value="<?php echo $jurusan; ?>" />
+                <td> <select name="jurusan" id="jurusan">
+                        <?php
+                        if (empty($jurusan)) {
+                        ?>
+                            <option value="">--PILIH--</option>
+                            <?php
+                        }
+                        foreach ($tb_jurusan->result() as $t) {
+                            if ($jurusan == $t->kode_jurusan) {
+                            ?>
+                                <option value="<?php echo $t->kode_jurusan; ?>" selected="selected"><?php echo $t->kode_jurusan; ?> - <?php echo $t->nama_jurusan; ?></option>
+                            <?php } else { ?>
+                                <option value="<?php echo $t->kode_jurusan; ?>"><?php echo $t->kode_jurusan; ?> - <?php echo $t->nama_jurusan; ?></option>
+                        <?php }
+                        } ?>
+                    </select>
                 </td>
             </tr>
             <tr>
@@ -140,9 +166,9 @@
         <table width="100%">
             <tr>
                 <td colspan="3" align="center">
-                    <button type="button" name="simpan" id="simpan" class="easyui-linkbutton" data-options="iconCls:'icon-save'">SIMPAN</button>
-                    <a href="<?php echo base_url(); ?>index.php/mahasiswa/tambah">
-                        <button type="button" name="tambah_data" id="tambah_data" class="easyui-linkbutton" data-options="iconCls:'icon-add'">TAMBAH</button>
+
+                    <a href="<?php echo base_url(); ?>index.php/mahasiswa/simpan">
+                        <button type="button" name="simpan" id="simpan" class="easyui-linkbutton" data-options="iconCls:'icon-add'">SIMPAN</button>
                     </a>
                     <a href="<?php echo base_url(); ?>index.php/mahasiswa/">
                         <button type="button" name="kembali" id="kembali" class="easyui-linkbutton" data-options="iconCls:'icon-back'">KEMBALI</button>

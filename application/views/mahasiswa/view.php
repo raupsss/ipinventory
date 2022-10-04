@@ -40,7 +40,7 @@
                         <td><?php echo $db['tempat_lahir']; ?></td>
                         <td><?php echo $db['tanggal_lahir']; ?></td>
                         <td><?php echo $db['alamat']; ?></td>
-                        <td><?php echo $db['jurusan']; ?></td>
+                        <td><?php echo $db['kode_jurusan']; ?></td>
                         <td><?php echo $db['no_hp']; ?></td>
                         <td><?php echo $db['email']; ?></td>
 

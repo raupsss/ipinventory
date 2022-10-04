@@ -88,6 +88,9 @@ class Mahasiswa extends CI_Controller
             $d['no_hp']    = '';
             $d['email']    = '';
 
+            $text = "SELECT * FROM jurusan";
+            $d['tb_jurusan'] = $this->app_model->manualQuery($text);
+
 
             $d['content'] = $this->load->view('mahasiswa/form', $d, true);
             $this->load->view('home', $d);
@@ -112,19 +115,32 @@ class Mahasiswa extends CI_Controller
             $d['judul'] = "mahasiswa";
 
             $id = $this->uri->segment(3);
-            $text = "SELECT * FROM mahasiswa WHERE kode_mahasiswa='$id'";
+            $text = "SELECT * FROM mahasiswa WHERE nim='$id'";
             $data = $this->app_model->manualQuery($text);
             if ($data->num_rows() > 0) {
                 foreach ($data->result() as $db) {
-                    $d['kode']        = $id;
-                    $d['nama_supp']    = $db->nama_mahasiswa;
+                    $d['nim']        = $id;
+                    $d['nama_lengkap']    = $db->nama_lengkap;
+                    $d['tempat_lahir']    = $db->tempat_lahir;
+                    $d['tanggal_lahir']    = $db->tanggal_lahir;
                     $d['alamat']    = $db->alamat;
+                    $d['kode_jurusan']    = $db->kode_jurusan;
+                    $d['no_hp']    = $db->no_hp;
+                    $d['email']    = $db->email;
                 }
             } else {
-                $d['kode']        = $id;
-                $d['nama_supp']    = '';
+                $d['nim']        = $id;
+                $d['nama_lengkap']    = '';
+                $d['tempat_lahir']    = '';
+                $d['tanggal_lahir']    = '';
                 $d['alamat']    = '';
+                $d['kode_jurusan']    = '';
+                $d['no_hp']    = '';
+                $d['email']    = '';
             }
+
+            $text = "SELECT * FROM jurusan";
+            $d['tb_jurusan'] = $this->app_model->manualQuery($text);
 
             $d['content'] = $this->load->view('mahasiswa/form', $d, true);
             $this->load->view('home', $d);
@@ -137,8 +153,8 @@ class Mahasiswa extends CI_Controller
     {
         $cek = $this->session->userdata('logged_in');
         if (!empty($cek)) {
-            $id = $this->uri->segment(3);
-            $this->app_model->manualQuery("DELETE FROM mahasiswa WHERE kode_mahasiswa='$id'");
+            $nim = $this->uri->segment(3);
+            $this->app_model->manualQuery("DELETE FROM mahasiswa WHERE nim='$nim'");
             echo "<meta http-equiv='refresh' content='0; url=" . base_url() . "index.php/mahasiswa'>";
         } else {
             header('location:' . base_url());
@@ -152,20 +168,30 @@ class Mahasiswa extends CI_Controller
         if (!empty($cek)) {
 
 
-            $up['kode_mahasiswa'] = $this->input->post('kode');
-            $up['kode_mahasiswa']    = $this->input->post('kode');
-            $up['nama_mahasiswa']    = $this->input->post('nama_supp');
-            $up['alamat']            = $this->input->post('alamat');
+            $up['nim'] = $this->input->post('nim');
+            $up['nama_lengkap']    = $this->input->post('nama_lengkap');
+            $up['tempat_lahir']    = $this->input->post('tempat_lahir');
+            $up['tanggal_lahir']   = $this->input->post('tanggal_lahir');
+            $up['alamat'] = $this->input->post('alamat');
+            $up['kode_jurusan'] = $this->input->post('kode_jurusan');
+            $up['no_hp'] = $this->input->post('no_hp');
+            $up['email'] = $this->input->post('email');
 
-            $id['kode_mahasiswa'] = $this->input->post('kode');
+            $id['nim'] = $this->input->post('nim');
+
+            $text = "SELECT * FROM jurusan";
+            $d['tb_jurusan'] = $this->app_model->manualQuery($text);
+
 
             $data = $this->app_model->getSelectedData("mahasiswa", $id);
             if ($data->num_rows() > 0) {
                 $this->app_model->updateData("mahasiswa", $up, $id);
-                echo 'Update data Sukses';
+                redirect('mahasiswa');
+                // echo 'update berhasil';
             } else {
                 $this->app_model->insertData("mahasiswa", $up);
-                echo 'Simpan data Sukses';
+                // echo 'Simpan data Sukses';
+                redirect('mahasiswa');
             }
         } else {
             header('location:' . base_url());

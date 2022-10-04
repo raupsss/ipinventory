@@ -55,6 +55,40 @@ class Ref_json extends CI_Controller
 			header('location:' . base_url());
 		}
 	}
+	public function InfoSiswa()
+	{
+		$cek = $this->session->userdata('logged_in');
+		if (!empty($cek)) {
+			$kode = $this->input->post('kode');
+			if ($this->session->userdata('level') == 'User') {
+				// $gudang = $this->session->userdata('gudang');
+				$text = "SELECT * FROM siswa WHERE nim='$kode'";
+			} else {
+				$text = "SELECT * FROM siswa WHERE nim='$kode'";
+			}
+			$tabel = $this->app_model->manualQuery($text);
+			$row = $tabel->num_rows();
+			if ($row > 0) {
+				foreach ($tabel->result() as $t) {
+					$data['nama'] = $t->nama;
+					$data['alamat'] = $t->alamat;
+					$data['kode_jurusan'] = $t->kode_jurusan;
+					$data['ttl'] = $t->ttl;
+
+					echo json_encode($data);
+				}
+			} else {
+				$data['nama'] = '';
+				$data['alamat'] = '';
+				$data['kode_jurusan'] = '';
+				$data['ttl'] = '';
+
+				echo json_encode($data);
+			}
+		} else {
+			header('location:' . base_url());
+		}
+	}
 
 	public function InfoSupplier()
 	{
@@ -82,11 +116,17 @@ class Ref_json extends CI_Controller
 
 	public function InfoMahasiswa()
 	{
-		$nim = $_GET['nim'];
+
 		$cek = $this->session->userdata('logged_in');
 		if (!empty($cek)) {
 			$kode = $this->input->post('nim');
-			$text = "SELECT * FROM mahasiswa WHERE nim='$nim'";
+			// $text = "SELECT * FROM mahasiswa WHERE nim='$kode'";
+			if ($this->session->userdata('level') == 'User') {
+				// $gudang = $this->session->userdata('gudang');
+				$text = "SELECT * FROM mahasiswa WHERE nim='$kode'";
+			} else {
+				$text = "SELECT * FROM mahasiswa WHERE nim='$kode'";
+			}
 			$tabel = $this->app_model->manualQuery($text);
 			$row = $tabel->num_rows();
 			if ($row > 0) {
