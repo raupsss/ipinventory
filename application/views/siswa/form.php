@@ -56,7 +56,7 @@
 			var nim = $("#nim").val();
 			var nama = $("#nama").val();
 			var alamat = $("#alamat").val();
-			var kode_jurusan = $("#kode_jurusan").val();
+			var jurusan = $("#jurusan").val();
 			var ttl = $("#ttl").val();
 
 			var string = $("#form").serialize();
@@ -91,14 +91,14 @@
 				$("#alamat").focus();
 				return false();
 			}
-			if (kode_jurusan.length == 0) {
+			if (jurusan.length == 0) {
 				$.messager.show({
 					title: 'Info',
 					msg: 'Maaf, Jurusan tidak boleh kosong',
 					timeout: 2000,
 					showType: 'show'
 				});
-				$("#kode_jurusan").focus();
+				$("#jurusan").focus();
 				return false();
 			}
 			if (ttl.length == 0) {
@@ -150,7 +150,7 @@
 			<tr>
 				<td>Nama Siswa</td>
 				<td>:</td>
-				<td><input type="text" name="nama" id="nama" size="50" maxlength="50" class="easyui-validatebox" value="<?php echo $nama; ?>" /></td>
+				<td><input type="text" name="nama" id="nama" size="25" maxlength="25" class="easyui-validatebox" value="<?php echo $nama; ?>" /></td>
 			</tr>
 			<tr>
 				<td>Alamat</td>

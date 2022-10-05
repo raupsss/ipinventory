@@ -70,6 +70,8 @@ class Siswa extends CI_Controller
 					ORDER BY nim ASC 
 					LIMIT $limit OFFSET $offset";
 			$d['data'] = $this->app_model->manualQuery($text);
+			$text = "SELECT * FROM jurusan";
+			$d["tb_jurusan"] = $this->app_model->manualQuery($text);
 
 			// $d['l_gudang'] = $this->app_model->getAllData("gudang");
 			$d['content'] = $this->load->view('siswa/view', $d, true);
@@ -97,7 +99,7 @@ class Siswa extends CI_Controller
 			$d['nim']	= '';
 			$d['nama']	= '';
 			$d['alamat']	= '';
-			$d['kode_jurusan']	= '';
+			$d['jurusan']	= '';
 			$d['ttl']	= '';
 
 			$text = "SELECT * FROM jurusan";
@@ -134,14 +136,14 @@ class Siswa extends CI_Controller
 					$d['nim']		= $id;
 					$d['nama']	= $db->nama;
 					$d['alamat']	= $db->alamat;
-					$d['kode_jurusan']	= $db->kode_jurusan;
+					$d['jurusan']	= $db->kode_jurusan;
 					$d['ttl']	= $db->ttl;
 				}
 			} else {
 				$d['nim']		= $id;
 				$d['nama']	= '';
 				$d['alamat']	= '';
-				$d['kode_jurusan']	= '';
+				$d['jurusan']	= '';
 				$d['ttl']	= '';
 			}
 			$text = "SELECT * FROM jurusan";
@@ -175,13 +177,13 @@ class Siswa extends CI_Controller
 			$up['nim'] = $this->input->post('nim');
 			$up['nama'] = $this->input->post('nama');
 			$up['alamat'] = $this->input->post('alamat');
-			$up['kode_jurusan'] = $this->input->post('kode_jurusan');
+			$up['kode_jurusan'] = $this->input->post('jurusan');
 			$up['ttl'] = $this->input->post('ttl');
 
 			$id['nim'] = $this->input->post('nim');
 
-			$text = "SELECT * FROM jurusan";
-			$d['tb_jurusan'] = $this->app_model->manualQuery($text);
+			// $text = "SELECT * FROM jurusan";
+			// $d['tb_jurusan'] = $this->app_model->manualQuery($text);
 
 			$data = $this->app_model->getSelectedData("siswa", $id);
 			if ($data->num_rows() > 0) {

@@ -16,11 +16,14 @@
             </li>
             </li>
             <li data-options="iconCls:'icon-surat_keluar'">
-                <a href="<?php echo base_url(); ?>index.php/mahasiswa">mahasiswa</a>
+                <a href="<?php echo base_url(); ?>index.php/mahasiswa">Mahasiswa</a>
             </li>
             </li>
             <li data-options="iconCls:'icon-surat_keluar'">
-                <a href="<?php echo base_url(); ?>index.php/siswa">siswa</a>
+                <a href="<?php echo base_url(); ?>index.php/siswa">Siswa</a>
+            </li>
+            <li data-options="iconCls:'icon-surat_keluar'">
+                <a href="<?php echo base_url(); ?>index.php/lap_siswa">Laporan Siswa</a>
             </li>
         </ul>
     </div>
