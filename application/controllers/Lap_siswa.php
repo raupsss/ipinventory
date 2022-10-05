@@ -123,27 +123,26 @@
 				$d['alamat_instansi'] = $this->config->item('alamat_instansi');
 				$d['judul'] = "Laporan Pembelian Barang";
 
+				$nim = $this->uri->segment(4);
+				$jurusan = $this->uri->segment(3);
+				// $tgl1 = $this->app_model->tgl_sql($this->uri->segment(3));
+				// $tgl2 = $this->app_model->tgl_sql($this->uri->segment(4));
 
-				$tgl1 = $this->app_model->tgl_sql($this->uri->segment(3));
-				$tgl2 = $this->app_model->tgl_sql($this->uri->segment(4));
-				// $kode_jurusan = "1"; //$this->uri->segment(5);
-				$nim = $this->uri->segment(6);
-				$kode_jurusan = $this->uri->segment(6);
-
-				$where = " WHERE a.tglbeli BETWEEN '$tgl1' AND '$tgl2'";
-				// $d['filter'] = 'Tanggal ' . $this->app_model->tgl_indo($tgl1) . ' s.d ' . $this->app_model->tgl_indo($tgl2);
-
-				// if (empty($kode_barang)) {
-				// 	if ($gudang != 'semua') {
-				// 		$where .= " AND c.id_gudang='$gudang'";
-				// 		//$d['filter'] .= ' Lokasi '.$this->app_model->Nama_Gudang($gudang);
-				// 	}
-				// } else {
-				// 	$where .= " AND b.kode_barang='$kode_barang'";
-				// 	$d['filter'] .= ' Kode Barang ' . $kode_barang;
-				// }
-				$text = "SELECT * FROM siswa
+				if (empty($nim)) {
+					if ($jurusan != 'semua') {
+						$text = "SELECT * FROM siswa
+							WHERE kode_jurusan = '$jurusan'
+							ORDER BY nim ASC";
+					} else {
+						$text = "SELECT * FROM siswa
+							ORDER BY nim ASC";
+					}
+				} else {
+					$text = "SELECT * FROM siswa
+					WHERE nim = '$nim' AND kode_jurusan = '$jurusan'
 					ORDER BY nim ASC ";
+				}
+
 				$d['data'] = $this->app_model->manualQuery($text);
 
 				$this->load->view('lap_siswa/cetak_excel', $d);

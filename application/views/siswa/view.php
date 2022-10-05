@@ -37,7 +37,7 @@
 						<td align="center" width="100"><?php echo $db['nim']; ?></td>
 						<td align="center"><?php echo $db['nama']; ?></td>
 						<td align="center" width="100"><?php echo $db['alamat']; ?></td>
-						<td align="center" width="80"><?php echo $jurusan; ?></td>
+						<td align="center" width="80" nowrap="nowrap"><?php echo $jurusan; ?></td>
 						<td align="center" width="80"><?php echo $db['ttl']; ?></td>
 
 						<td align="center" width="80">

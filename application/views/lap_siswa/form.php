@@ -79,18 +79,18 @@
 
 			var string = jurusan + "/" + nim;
 
-			if (tgl1.length == 0) {
-				alert("Maaf, Anda belum memilih Tanggal Awal");
-				$("#tgl1").focus();
-				return false();
-			}
-			if (tgl2.length == 0) {
-				alert("Maaf, Anda belum memilih Tanggal Akhir");
-				$("#tgl2").focus();
-				return false();
-			}
-
 			window.open('<?php echo site_url(); ?>/lap_siswa/cetak/' + string);
+			return false();
+		});
+		$("#cetak_excel").click(function() {
+			var jurusan = $("#jurusan").val();
+			var nim = $("#nim").val();
+			// var tgl1 = $("#tgl1").val();
+			// var tgl2 = $("#tgl2").val();
+
+			var string = jurusan + "/" + nim;
+
+			window.open('<?php echo site_url(); ?>/lap_siswa/cetak_excel/' + string);
 			return false();
 		});
 
